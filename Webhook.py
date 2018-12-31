@@ -25,14 +25,13 @@ app = Flask(__name__)
 @app.route('/webhook', methods=['POST'])
 def webhook():
     if request.method == 'POST':
-        #print(type(request.json))
+
         print("The alert type is ")
         print(request.json["alertType"])
         print("   ")
-        #if request.json["alertType"] == 'Settings changed':
-        #print('call chaotbot here')
-        send_it(token, teams_room, str(dt.datetime.now()) + "\n" + request.json["alertType"])
-        #print(request.json)
+
+        if request.json["alertType"] == 'Motion detected':
+            send_it(token, teams_room, str(dt.datetime.now()) + "\n" + request.json["alertType"])
         return '', 200
     else:
         abort(400)
